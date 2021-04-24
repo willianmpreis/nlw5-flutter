@@ -1,4 +1,5 @@
-# nlw5-flutter
+# Projeto DevQuiz
+
 Minha primeira aplicação construída em Flutter. 
 
 https://www.figma.com/file/fMqKhwT9L5D3MVe4btRtG5/
