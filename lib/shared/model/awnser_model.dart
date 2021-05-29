@@ -2,24 +2,24 @@ import 'dart:convert';
 
 class AwnserModel {
   final String title;
-  final bool isRigth;
+  final bool isRight;
 
   AwnserModel({
     required this.title,
-    this.isRigth = false,
+    this.isRight = false,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'isRigth': isRigth,
+      'isRight': isRight,
     };
   }
 
   factory AwnserModel.fromMap(Map<String, dynamic> map) {
     return AwnserModel(
       title: map['title'],
-      isRigth: map['isRigth'] ?? false,
+      isRight: map['isRight'] ?? false,
     );
   }
 
