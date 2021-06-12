@@ -1,6 +1,7 @@
 import 'package:devquiz/challenge/challenge_controller.dart';
 import 'package:devquiz/challenge/next_button/next_button_widget.dart';
 import 'package:devquiz/challenge/widget/quiz/quiz_widget.dart';
+import 'package:devquiz/result/result_page.dart';
 import 'package:devquiz/shared/model/question_model.dart';
 
 import 'widget/question_indicator/question_indicator_widget.dart';
@@ -8,8 +9,10 @@ import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
+  final String title;
 
-  ChallengePage({Key? key, required this.questions}) : super(key: key);
+  ChallengePage({Key? key, required this.questions, required this.title})
+      : super(key: key);
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -36,6 +39,13 @@ class _ChallengePageState extends State<ChallengePage> {
         duration: Duration(milliseconds: 100),
         curve: Curves.linear,
       );
+  }
+
+  void onSelected(bool value) {
+    if (value) {
+      controller.qtdAnwserRight++;
+    }
+    nextPage();
   }
 
   @override
@@ -66,7 +76,7 @@ class _ChallengePageState extends State<ChallengePage> {
         children: widget.questions
             .map((e) => QuizWidget(
                   question: e,
-                  onChange: nextPage,
+                  onSelected: onSelected,
                 ))
             .toList(),
       ),
@@ -88,7 +98,16 @@ class _ChallengePageState extends State<ChallengePage> {
               Expanded(
                   child: NextButtonWidget.green(
                 label: "Confirmar",
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ResultPage(
+                                title: widget.title,
+                                length: widget.questions.length,
+                                result: controller.qtdAnwserRight,
+                              )));
+                },
               )),
             ],
           ),
